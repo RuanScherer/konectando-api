@@ -17,7 +17,12 @@ function generateToken(params) {
 module.exports = {
 	async index(req, res) {
 		School.findAll()
-			.then((schools) => { res.send({ schools }) })
+			.then((schools) => { 
+				schools.forEach((school) => {
+					clearSensitiveData(school)
+				})
+				return res.send({ schools })
+			})
 			.catch((err) => res.status(400).send({ err }))
 	},
 
