@@ -9,4 +9,6 @@ router.post('/donators/auth', DonatorController.sign)
 
 router.use(authMiddleware)
 
+router.delete('/donators', DonatorController.destroy)
+
 module.exports = router

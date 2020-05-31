@@ -59,5 +59,21 @@ module.exports = {
 			donator,
 			token: generateToken({ id: donator.id })
 		})
+	},
+
+	async destroy(req, res) {
+		const donator = await Donator.findByPk(req.userId)
+
+		if (!donator) return res.status(400).send()
+
+		Donator.destroy({
+			where: {
+				id: req.userId
+			}
+		}).then(() => {
+			return res.send()
+		}).catch(() => {
+			return res.status(400).send()
+		})
 	}
 }
