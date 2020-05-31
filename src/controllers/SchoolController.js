@@ -15,6 +15,12 @@ function generateToken(params) {
 }
 
 module.exports = {
+	async index(req, res) {
+		School.findAll()
+			.then((schools) => { res.send({ schools }) })
+			.catch((err) => res.status(400).send({ err }))
+	},
+
 	async store(req, res) {
 		const { name, email, phone, password } = req.body
 

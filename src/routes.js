@@ -15,5 +15,6 @@ router.use(authMiddleware)
 router.get('/donators/:id', DonatorController.show)
 router.put('/donators', DonatorController.update)
 router.delete('/donators', DonatorController.destroy)
+router.get('/schools', SchoolController.index)
 
 module.exports = router
