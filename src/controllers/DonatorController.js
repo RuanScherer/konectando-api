@@ -61,6 +61,27 @@ module.exports = {
 		})
 	},
 
+	async update(req, res) {
+		const { name,  email, phone } = req.body
+		const donator = await Donator.findByPk(req.userId)
+
+		if (!donator) return res.status(400).send()
+
+		Donator.update({ 
+			name,
+			email,
+			phone
+		}, {
+			where: {
+				id: req.userId
+			}
+		}).then(() => {
+			return res.send()
+		}).catch(() => {
+			return res.status(500).send()
+		})
+	},
+
 	async destroy(req, res) {
 		const donator = await Donator.findByPk(req.userId)
 

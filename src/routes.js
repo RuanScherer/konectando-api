@@ -9,6 +9,7 @@ router.post('/donators/auth', DonatorController.sign)
 
 router.use(authMiddleware)
 
+router.put('/donators', DonatorController.update)
 router.delete('/donators', DonatorController.destroy)
 
 module.exports = router
