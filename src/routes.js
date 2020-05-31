@@ -9,6 +9,7 @@ router.post('/donators/auth', DonatorController.sign)
 
 router.use(authMiddleware)
 
+router.get('/donators/:id', DonatorController.show)
 router.put('/donators', DonatorController.update)
 router.delete('/donators', DonatorController.destroy)
 

@@ -15,6 +15,15 @@ function generateToken(params) {
 }
 
 module.exports = {
+	async show(req, res) {
+		Donator.findByPk(req.params.id)
+			.then((donator) => { 
+				clearSensitiveData(donator)
+				return res.send({ donator })
+			})
+			.catch(() => res.status(400).send())
+	},
+
 	async store(req, res) {
 		const { name, email, phone, password } = req.body
 
