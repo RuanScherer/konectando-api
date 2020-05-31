@@ -32,8 +32,8 @@ module.exports = {
 		const donator = await Donator.findOne({
 			where: {
 				[Op.or]: [
-					{ name: name },
-					{ email: email }
+					{ email: email },
+					{ phone: phone }
 				]
 			}
 		})
