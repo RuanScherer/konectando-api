@@ -42,5 +42,22 @@ module.exports = {
 			.catch(() => {
 				return res.status(500).send()
 			})
+	},
+
+	async sign(req, res) {
+		const { email, password } = req.body
+		const donator = await Donator.findOne({
+			where: {
+				email
+			}
+		})
+
+		if (!donator || !await bcrypt.compare(password, donator.password)) return res.status(400).send()
+
+		clearSensitiveData(donator)
+		return res.json({
+			donator,
+			token: generateToken({ id: donator.id })
+		})
 	}
 }
