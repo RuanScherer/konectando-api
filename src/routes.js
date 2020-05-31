@@ -1,9 +1,10 @@
 const express = require('express')
 const authMiddleware = require('./middlewares/auth')
+const DonatorController = require('./controllers/DonatorController')
 
 const router = express.Router()
 
-router.get('/', (req, res) => res.send("Hello, World"))
+router.post('/donators/register', DonatorController.store)
 
 router.use(authMiddleware)
 
