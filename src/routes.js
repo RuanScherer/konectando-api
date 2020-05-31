@@ -8,6 +8,7 @@ const router = express.Router()
 router.post('/donators/register', DonatorController.store)
 router.post('/donators/auth', DonatorController.sign)
 router.post('/schools/register', SchoolController.store)
+router.post('/schools/auth', SchoolController.sign)
 
 router.use(authMiddleware)
 

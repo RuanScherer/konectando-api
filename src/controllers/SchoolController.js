@@ -41,5 +41,22 @@ module.exports = {
 				})
 			})
 			.catch((err) => res.status(500).send({ err }))
-	}
+	},
+
+	async sign(req, res) {
+		const { email, password } = req.body
+		const school = await School.findOne({
+			where: {
+				email
+			}
+		})
+
+		if (!school || !await bcrypt.compare(password, school.password)) return res.status(400).send()
+
+		clearSensitiveData(school)
+		return res.json({
+			school,
+			token: generateToken({ id: school.id })
+		})
+	},
 }
