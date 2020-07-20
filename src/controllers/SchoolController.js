@@ -3,6 +3,7 @@ const { Op } = require('sequelize')
 const jwt = require('jsonwebtoken')
 const authConfig = require('../config/auth.json')
 const bcrypt = require('bcryptjs')
+const { show } = require('./DonatorController')
 
 function clearSensitiveData(model) {
 	model.password = undefined
@@ -70,4 +71,19 @@ module.exports = {
 			token: generateToken({ id: school.id })
 		})
 	},
+
+	async show(req, res) {
+		const { id } = req.params
+		if (!id) return res.status(400).send("Id param required.")
+
+		const school = await School.findOne({
+			where: {
+				id
+			}
+		})
+
+		if (!school) return res.status(400).send("School not found.")
+		school.password = undefined
+		return res.json({ school })
+	}
 }

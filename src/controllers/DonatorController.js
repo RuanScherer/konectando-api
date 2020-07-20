@@ -27,7 +27,7 @@ module.exports = {
 	async store(req, res) {
 		const { name, email, phone, password } = req.body
 
-		if (password.length < 8 || phone.length < 10) return res.status(400).send()
+		if (password.length < 8 || phone.length < 10) return res.status(400).send("Password too short.")
 
 		const donator = await Donator.findOne({
 			where: {
@@ -38,7 +38,7 @@ module.exports = {
 			}
 		})
 
-		if (donator) return res.status(400).send()
+		if (donator) return res.status(400).send("User already exists.")
 
 		await Donator.create({ name, email, phone, password })
 			.then((donator) => {
