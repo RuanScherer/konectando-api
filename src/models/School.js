@@ -7,6 +7,7 @@ class School extends Model {
 			name: DataTypes.STRING,
 			email: DataTypes.STRING,
 			phone: DataTypes.STRING,
+			hour: DataTypes.STRING,
 			password: DataTypes.STRING
 		}, {
 			hooks: {

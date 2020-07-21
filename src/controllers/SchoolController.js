@@ -28,7 +28,7 @@ module.exports = {
 	},
 
 	async store(req, res) {
-		const { name, email, phone, password } = req.body
+		const { name, email, phone, hour, password } = req.body
 
 		if (password.length < 8 || phone.length < 10) return res.status(400).send()
 
@@ -44,7 +44,7 @@ module.exports = {
 
 		if (school) return res.status(400).send()
 
-		School.create({ name, email, phone, password })
+		School.create({ name, email, phone, hour, password })
 			.then((school) => {
 				clearSensitiveData(school)
 				return res.json({
