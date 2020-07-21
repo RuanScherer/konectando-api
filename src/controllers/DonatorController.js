@@ -16,7 +16,7 @@ function generateToken(params) {
 
 module.exports = {
 	async show(req, res) {
-		Donator.findByPk(req.params.id)
+		Donator.findByPk(req.userId)
 			.then((donator) => { 
 				clearSensitiveData(donator)
 				return res.send({ donator })

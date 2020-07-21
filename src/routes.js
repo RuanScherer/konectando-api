@@ -12,7 +12,7 @@ router.post('/schools/auth', SchoolController.sign)
 
 router.use(authMiddleware)
 
-router.get('/donators/:id', DonatorController.show)
+router.get('/donators/account', DonatorController.show)
 router.put('/donators', DonatorController.update)
 router.delete('/donators', DonatorController.destroy)
 router.get('/schools', SchoolController.index)
