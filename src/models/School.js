@@ -19,6 +19,10 @@ class School extends Model {
 			sequelize: connection
 		})
 	}
+
+	static associate(models) {
+		this.hasMany(models.Address, { foreignKey: 'school_id', as: 'addresses' })
+	}
 }
 
 module.exports = School
