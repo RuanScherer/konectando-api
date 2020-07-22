@@ -20,17 +20,5 @@ module.exports = {
 		if (!address) return res.status(500).send({ err: "Server error" })
 
 		return res.send({ address })
-	},
-
-	async show(req, res) {
-		const { id } = req.params
-
-		const school = await School.findByPk(id, {
-			include: { association: 'addresses' }
-		})
-
-		school.password = undefined
-
-		return res.json({ school })
 	}
 }

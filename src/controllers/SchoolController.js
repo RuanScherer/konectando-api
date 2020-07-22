@@ -76,9 +76,9 @@ module.exports = {
 		const { id } = req.params
 		if (!id) return res.status(400).send("Id param required.")
 
-		const school = await School.findOne({
-			where: {
-				id
+		const school = await School.findByPk(id, {
+			include: {
+				association: 'addresses'
 			}
 		})
 
