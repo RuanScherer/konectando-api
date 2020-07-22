@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const authConfig = require('../config/auth.json')
 const bcrypt = require('bcryptjs')
 const { show } = require('./DonatorController')
+const { update } = require('../models/School')
 
 function clearSensitiveData(model) {
 	model.password = undefined
@@ -17,7 +18,11 @@ function generateToken(params) {
 
 module.exports = {
 	async index(req, res) {
-		School.findAll()
+		School.findAll({
+			include: {
+				association: 'addresses'
+			}
+		})
 			.then((schools) => { 
 				schools.forEach((school) => {
 					clearSensitiveData(school)
@@ -52,6 +57,23 @@ module.exports = {
 					token: generateToken({ id: school.id })
 				})
 			})
+			.catch((err) => res.status(500).send({ err }))
+	},
+
+	async update(req, res) {
+		const {userId } = req
+		const { name, email, phone, hour, password } = req.body
+
+		if (password.length < 8 || phone.length < 10) return res.status(400).send()
+
+		const school = await School.findByPk(userId)
+		if (!school) return res.status(400).send()
+
+		School.update({ name, email, phone, hour, password }, {
+			where: {
+				id: userId
+			}
+		}).then(() => res.send())
 			.catch((err) => res.status(500).send({ err }))
 	},
 
