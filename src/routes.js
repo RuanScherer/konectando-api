@@ -2,6 +2,7 @@ const express = require('express')
 const authMiddleware = require('./middlewares/auth')
 const DonatorController = require('./controllers/DonatorController')
 const SchoolController = require('./controllers/SchoolController')
+const AddressController = require('./controllers/AddressController')
 
 const router = express.Router()
 
@@ -17,5 +18,6 @@ router.put('/donators', DonatorController.update)
 router.delete('/donators', DonatorController.destroy)
 router.get('/schools', SchoolController.index)
 router.get('/schools/:id', SchoolController.show)
+router.post('/schools/addresses', AddressController.store)
 
 module.exports = router
