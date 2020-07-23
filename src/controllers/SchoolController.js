@@ -62,19 +62,17 @@ module.exports = {
 
 	async update(req, res) {
 		const {userId } = req
-		const { name, email, phone, hour, password } = req.body
-
-		if (password.length < 8 || phone.length < 10) return res.status(400).send()
+		const { name, email, phone, hour } = req.body
 
 		const school = await School.findByPk(userId)
 		if (!school) return res.status(400).send()
 
-		School.update({ name, email, phone, hour, password }, {
+		School.update({ name, email, phone, hour }, {
 			where: {
 				id: userId
 			}
 		}).then(() => res.send())
-			.catch((err) => res.status(500).send({ err }))
+			.catch(err => res.status(500).send({ err }))
 	},
 
 	async sign(req, res) {
