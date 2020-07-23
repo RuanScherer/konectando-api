@@ -1,6 +1,5 @@
 const Address = require("../models/Address");
 const School = require("../models/School");
-const { update } = require("../models/School");
 
 module.exports = {
 	async store(req, res) {

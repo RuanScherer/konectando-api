@@ -3,6 +3,7 @@ const authMiddleware = require('./middlewares/auth')
 const DonatorController = require('./controllers/DonatorController')
 const SchoolController = require('./controllers/SchoolController')
 const AddressController = require('./controllers/AddressController')
+const DonationController = require('./controllers/DonationController')
 
 const router = express.Router()
 
@@ -21,4 +22,6 @@ router.get('/schools/:id', SchoolController.show)
 router.post('/schools/addresses', AddressController.store)
 router.put('/schools', SchoolController.update)
 router.put('/schools/addresses', AddressController.update)
+router.post('/schools/:school_id/donate', DonationController.store)
+
 module.exports = router
