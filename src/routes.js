@@ -20,4 +20,5 @@ router.get('/schools', SchoolController.index)
 router.get('/schools/:id', SchoolController.show)
 router.post('/schools/addresses', AddressController.store)
 router.put('/schools', SchoolController.update)
+router.put('/schools/addresses', AddressController.update)
 module.exports = router
