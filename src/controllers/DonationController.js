@@ -1,7 +1,6 @@
 const Donation = require("../models/Donation");
 const School = require("../models/School");
 const Donator = require("../models/Donator");
-const { show } = require("./DonatorController");
 
 function clearSensitiveData(array, type) {
 	return newArray = array.map(element => {
@@ -94,6 +93,19 @@ module.exports = {
 
 		donation.receptor.password = undefined
 		donation.donator.password = undefined
+
+		if (!donation) return res.status(400).send()
+		return res.send({ donation })
+	},
+
+	async destroy(req, res) {
+		const { id } = req.params
+
+		const donation = await Donation.destroy({ 
+			where: {
+				id
+			}
+		})
 
 		if (!donation) return res.status(400).send()
 		return res.send({ donation })
