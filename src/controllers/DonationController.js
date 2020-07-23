@@ -98,6 +98,32 @@ module.exports = {
 		return res.send({ donation })
 	},
 
+	async update(req, res) {
+		const { userId } = req
+		const { id } = req.params
+		const { quantity, description } = req.body
+
+		const donator = await Donator.findByPk(userId)
+		if (!donator) return res.status(400).send({ err: "Donator not found" })
+
+		let donation = await Donation.findByPk(id)
+		if (!donation) return res.status(400).send({ err: "Donation not found" })
+
+		if (donation.donator_id !== userId) return res.status(400).send({ err: "Invalid user" })
+
+		donation = await Donation.update({
+			quantity,
+			description
+		}, {
+			where: {
+				id
+			}
+		})
+
+		if (!donation) return res.status(500).send({ err: "Server error" })
+		return res.send({ donation })
+	},
+
 	async destroy(req, res) {
 		const { id } = req.params
 
