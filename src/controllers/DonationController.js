@@ -1,6 +1,7 @@
 const Donation = require("../models/Donation");
 const School = require("../models/School");
 const Donator = require("../models/Donator");
+const { show } = require("./DonatorController");
 
 function clearSensitiveData(array, type) {
 	return newArray = array.map(element => {
@@ -71,5 +72,30 @@ module.exports = {
 
 		if (!donations) return res.status(500).send({ err: "Server error" })
 		return res.send({ donations })
+	},
+
+	async show(req, res) {
+		const { userId } = req
+		const { id } = req.params
+
+		let donation = await Donation.findByPk(id, {
+			include: [
+				{ 
+					association: 'receptor',
+					include: {
+						association: 'addresses'
+					}
+				},
+				{ association: 'donator' }
+			]
+		})
+
+		if (userId !== donation.receptor.id & userId !== donation.donator.id) return res.status(400).send()
+
+		donation.receptor.password = undefined
+		donation.donator.password = undefined
+
+		if (!donation) return res.status(400).send()
+		return res.send({ donation })
 	}
 }

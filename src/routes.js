@@ -25,5 +25,6 @@ router.post('/schools/addresses', AddressController.store)
 router.put('/schools', SchoolController.update)
 router.put('/schools/addresses', AddressController.update)
 router.post('/schools/:school_id/donate', DonationController.store)
+router.get('/donations/:id', DonationController.show)
 
 module.exports = router
